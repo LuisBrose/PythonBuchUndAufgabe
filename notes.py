@@ -8,7 +8,9 @@ if __name__ == "__main__":
     y = "abdkfjgiucnglijngjol"  # slice
     print(y[20:1:-1])
 
-    print(hash("abcde") % 10)  # hash value of an object
+    print(
+        hash("abcde")
+    )  # hash value of an object                                                         !not in book!
     print(hash(y) == hash(y))  # better: print(y is y)
 
     a, *b, c, d = 1, 2, 3, 4, 5, 6
@@ -46,7 +48,7 @@ if __name__ == "__main__":
     flo = 152131.15466513221185465413
     print(
         f"{flo:.4f}\t" f"{flo:.4e}\t" f"{flo:.2%}\t" f"{flo:n}\n"
-    )  # easily format strings all format options: https://www.w3schools.com/python/ref_string_format.asp
+    )  # easily format strings, all format options: https://www.w3schools.com/python/ref_string_format.asp
 
     import random
 
@@ -63,5 +65,95 @@ if __name__ == "__main__":
     list_comprehension = [item + 1 for item in range(10)]  # list comprehension
     print(list_comprehension)
 
+    def any_params(*params):  # varying parameter amount
+        for p in params:
+            print(p, end=" -> ")
+        print("\r")
 
+    any_params(2, 4, 6, 4, 7, 5, 4, 2, 1, 5)
 
+    def default_param_values(width=1, height=1):  # assign default parameter values
+        print(width, "x", height, " cube created")
+
+    default_param_values()  # no need to specify param values -> default values
+    default_param_values(2, 2)
+
+    g_scope = None
+
+    def local_scope():
+        global g_scope  # variable is part of global scope instead of local
+        g_scope = "something"
+
+    res = map(
+        (lambda param1, param2: param1 + param2), [1, 2, 3], [1, 2, 3]
+    )  # create a simple anonymous/lambda function
+    print(set(res))
+
+    import sys
+
+    print(list(sys.argv))  # access command line arguments
+
+    def docstring_demonstration(random_min: int, random_max: int):
+        """Generate a pseudo random number
+        :param random_min: the smallest possible value
+        :param random_max: the largest possible value
+        :return: int between random_min and random_max
+        """
+        return random.randint(random_min, random_max)
+
+    print(
+        docstring_demonstration(1, 10)
+    )  # hover to fetch documentation             !not in book!
+
+    # Python allows inheriting from multiple classes directly
+    class MultipleInheritance(ImportError, ImportWarning):
+        pass
+
+    import time
+
+    t = time.localtime()
+    print(
+        "Heute ist der ",
+        f"{t.tm_mday:02d}.{t.tm_mon:02d}",  # manual formatting
+        ".",
+        t.tm_year,
+        " um ",
+        f"{t.tm_hour:02d}:{t.tm_min:02d} Uhr",
+        sep="",
+    )
+    print(
+        "Heute ist der ",
+        time.strftime("%d.%m.%Y", t),  # easily format using strftime formatting
+        " um ",
+        time.strftime("%H:%M Uhr", t),
+        sep="",
+    )
+
+    print(time.mktime(t))  # time since Epoch
+
+    import threading
+
+    def go_to_sleep(sec: int):
+        print(f"Sleeping Thread: {threading.get_ident()}")
+        time.sleep(sec)
+        print("this thread is slowly waking up after napping for ", sec, "s", sep="")
+
+    sleeping_thread = threading.Thread(
+        target=go_to_sleep, args=[docstring_demonstration(2, 6)]
+    )  # create a sleeping thread
+
+    sleeping_thread.start()
+
+    print(f"Main Thread: {threading.get_ident()}")
+
+    import collections
+
+    deque = collections.deque([1, 2, 3])  # deque => double-ended queue
+    print(deque[0], deque[1], deque[2], sep=" <-> ")
+    deque.pop()
+    deque.appendleft(5)
+    print(deque[0], deque[1], deque[2], sep=" <-> ")
+
+    import re
+
+    re.findall("")  # regex in python
