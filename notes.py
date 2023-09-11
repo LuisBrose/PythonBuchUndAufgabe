@@ -136,7 +136,12 @@ if __name__ == "__main__":
     def go_to_sleep(sec: int):
         print(f"Sleeping Thread: {threading.get_ident()}")
         time.sleep(sec)
-        print("this thread is slowly waking up after napping for ", sec, "s", sep="")
+        print(
+            f"Thread {threading.get_ident()} is slowly waking up after napping for ",
+            sec,
+            "s",
+            sep="",
+        )
 
     sleeping_thread = threading.Thread(
         target=go_to_sleep, args=[docstring_demonstration(2, 6)]
@@ -156,4 +161,76 @@ if __name__ == "__main__":
 
     import re
 
-    re.findall("")  # regex in python
+    lorem = (
+        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut "
+        "labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et "
+        "ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem "
+        "ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et "
+        "dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+        "Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    )
+    print(re.findall("Lorem", lorem))  # regex in python
+    print(re.findall(".rem", lorem))
+    print(re.findall("[ue]m", lorem))
+    print(re.findall("[a-z]m", lorem))
+
+    try:
+        my_file = open("notes_out/text.txt", mode="a")
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    my_file.write("Test \n")
+    my_file.close()
+
+    try:
+        my_file = open("notes_out/text.txt")  # mode r is default
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    my_file.seek(1)  # traverse the file by 1 byte
+    print(my_file.readlines())  # read to list of strings
+    my_file.close()
+
+    try:
+        my_file = open("notes_out/data.csv", mode="w")  # read from csv
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    data_tuples = [("Erik", 20, "m"), ("Max", 25, "m"), ("Anna", 19, "w")]
+    for tup in data_tuples:
+        my_file.write(f"{tup[0]};{tup[1]};{tup[2]}\n")
+    my_file.close()
+
+    try:
+        my_file = open("notes_out/data.csv")  # read from csv
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    result = my_file.read()
+    my_file.close()
+    result_lines = result.split(chr(10))
+    data_tuples_read = []
+    for line in result_lines:
+        if line:
+            data_tuples_read.append(tuple(line.split(";")))
+    print(data_tuples_read)
+
+    import pickle
+
+    try:
+        my_file = open("notes_out/serialized.bin", "wb")  # serialize to binary file
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    my_dictionary = {"a": "a", "b": "b", "c": "c", "d": "d"}
+    pickle.dump(my_dictionary, my_file)
+    my_file.close()
+
+    try:
+        my_file = open("notes_out/serialized.bin", "rb")  # read serialized from binary
+    except Exception as e:
+        print("An Error occurred: ", e)
+        sys.exit(0)
+    print(pickle.load(my_file)["c"])
+    my_file.close()
+
