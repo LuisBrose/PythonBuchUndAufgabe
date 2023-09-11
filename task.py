@@ -18,7 +18,10 @@ if __name__ == "__main__":
         f"Exit Inventory management: 4\n"
         f"your choice: "
     )
-    mode = int(mode)
+    try:
+        mode = int(mode)
+    except ValueError as e:
+        print(e)
     if mode == 0:
         pass
     elif mode == 1:
@@ -27,7 +30,7 @@ if __name__ == "__main__":
         print(company_inventory.load_csv())
     elif mode == 3:
         print(company_inventory.load_binary())
-    elif mode == 4:
+    else:
         sys.exit(0)
 
     print(
@@ -118,5 +121,5 @@ if __name__ == "__main__":
             print(company_inventory.save_csv())
         elif choice == 6:
             print(company_inventory.save_binary())
-        elif choice == 7:
+        else:
             sys.exit(0)
