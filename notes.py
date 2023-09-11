@@ -192,7 +192,7 @@ if __name__ == "__main__":
     my_file.close()
 
     try:
-        my_file = open("notes_out/data.csv", mode="w")  # read from csv
+        my_file = open("notes_out/data.csv", mode="w")  # write to csv
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)

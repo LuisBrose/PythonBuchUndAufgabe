@@ -39,3 +39,18 @@ class Article:
         :return: the current stock for this article
         """
         return self.stock
+
+    def article_to_csv(self):
+        """
+        :return: this article in csv format
+        """
+        return f"{self.code};{self.name};{self.stock}"
+
+    @staticmethod
+    def csv_to_article(csv):
+        """Convert an article in csv format back to normal
+        :param csv: the article in csv format
+        :return: an article
+        """
+        split = str(csv).split(";")
+        return Article(split[0], split[1], int(split[2]))

@@ -5,6 +5,35 @@ from Inventory import Inventory
 
 
 if __name__ == "__main__":
+    company_inventory = Inventory({})
+
+    print("___---Welcome to Inventory management---___\n")
+
+    mode = input(
+        f"Choose your Inventory management mode: \n"
+        f"New empty Inventory: 0\n"
+        f"New Inventory populated with demo data: 1\n"
+        f"Load existing Inventory from csv file: 2\n"
+        f"Load existing Inventory from binary file: 3\n"
+        f"Exit Inventory management: 4\n"
+        f"your choice: "
+    )
+    mode = int(mode)
+    if mode == 0:
+        pass
+    elif mode == 1:
+        pass
+    elif mode == 2:
+        print(company_inventory.load_csv())
+    elif mode == 3:
+        print(company_inventory.load_binary())
+    elif mode == 4:
+        sys.exit(0)
+
+    print(
+        "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    )
+
     print("___---Welcome to Inventory management---___")
     article_dict = {
         "A123": Article("A123", "Screw"),
@@ -12,7 +41,8 @@ if __name__ == "__main__":
         "C789": Article("C789", "Nut"),
     }
 
-    company_inventory = Inventory(article_dict)
+    if mode == 1:
+        company_inventory = Inventory(article_dict)
 
     transactions = [
         {"article": "A123", "quantity": 10, "action": "Incoming"},
@@ -21,31 +51,34 @@ if __name__ == "__main__":
         {"article": "C789", "quantity": 8, "action": "Incoming"},
     ]
 
-    for transaction in transactions:
-        try:
-            print(
-                "Transfer: ",
-                company_inventory.add_new_transaction(
-                    transaction["article"],
-                    transaction["quantity"],
-                    transaction["action"],
-                ),
-            )
-        except Exception as e:
-            print(e)
+    if mode == 1:
+        for transaction in transactions:
+            try:
+                print(
+                    "Transfer: ",
+                    company_inventory.add_new_transaction(
+                        transaction["article"],
+                        transaction["quantity"],
+                        transaction["action"],
+                    ),
+                )
+            except Exception as e:
+                print(e)
 
     print(company_inventory)
 
     while True:
         choice = int(
             input(
-                f"{'___---Menu---___':^30}\nWhat do you want to do next? \n\n"
+                f"\n\n{'___---Menu---___':^30}\nWhat do you want to do next? \n\n"
                 f"Create a new article : 0\n"
                 f"Check stock of an article : 1\n"
                 f"Transfer an article from the inventory : 2\n"
                 f"Transfer an article to the inventory : 3\n"
                 f"Display the whole inventory : 4\n"
-                f"Exit the program : 5\n"
+                f"Save the current inventory in a csv file : 5\n"
+                f"Save the current inventory in a binary file : 6\n"
+                f"Exit the program : 7\n"
                 f"\nchoose an action: "
             )
         )
@@ -82,4 +115,8 @@ if __name__ == "__main__":
         elif choice == 4:
             print(company_inventory)
         elif choice == 5:
+            print(company_inventory.save_csv())
+        elif choice == 6:
+            print(company_inventory.save_binary())
+        elif choice == 7:
             sys.exit(0)
