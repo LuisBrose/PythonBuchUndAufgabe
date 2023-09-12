@@ -1,4 +1,6 @@
+import os.path
 import pickle
+import sqlite3
 
 from Article import Article
 
@@ -37,8 +39,8 @@ class Inventory:
             n = name
         else:
             n = input("Please provide a name for the new article: ")
-        if quantity:
-            q = quantity
+        if int(quantity) >= 0:
+            q = int(quantity)
         else:
             q = input("Please provide a quantity for the new article: ")
         self.article_list[c] = Article(c, n, q)
@@ -110,6 +112,44 @@ class Inventory:
         except Exception as e:
             return e
 
+    def save_db(self, file_path=None):
+        """
+        Saves the current inventory state in a sqlite database
+        :param file_path: full path to the file
+        :return: If the inventory was saved successfully
+        """
+        path = file_path
+        if not path or not os.path.exists(path):
+            path = f"inventory_saves/{input('Please provide a name for you database (example_db): ')}.db"
+            if not os.path.exists(path):
+                try:
+                    db_connection = sqlite3.connect(path)
+                    cursor = db_connection.cursor()
+                    cursor.execute(
+                        "CREATE TABLE articles("
+                        "code TEXT PRIMARY KEY,"
+                        "name TEXT,"
+                        "quantity INTEGER)"
+                    )
+                    db_connection.commit()
+                    db_connection.close()
+                except Exception as e:
+                    return e
+        try:
+            db_connection = sqlite3.connect(path)
+            cursor = db_connection.cursor()
+            for article in self.article_list:
+                cursor.execute(
+                    f"INSERT OR REPLACE INTO articles VALUES('{article}',"
+                    f"'{self.article_list.get(article).name}',"
+                    f"'{self.article_list.get(article).stock}')"
+                )
+            db_connection.commit()
+            db_connection.close()
+            return "Inventory saved successfully"
+        except Exception as e:
+            return e
+
     def load_binary(self, file_path=None):
         """
         Reads a saved inventory state from a binary file
@@ -148,3 +188,27 @@ class Inventory:
             return "Inventory loaded successfully"
         except Exception as e:
             return e
+
+    def load_db(self, file_path=None):
+        """
+        Reads a saved inventory state from a sqlite .db file
+        :param file_path: full path to the file
+        :return: If the inventory was loaded successfully
+        """
+        path = file_path
+        while not path or not os.path.exists(path):
+            try:
+                path = f"inventory_saves/{input('Please provide the database name (example_db): ')}.db"
+                db_connection = sqlite3.connect(path)
+                cursor = db_connection.cursor()
+                cursor.execute("SELECT * FROM articles")
+                db_connection.commit()
+                for data_tuple in cursor:
+                    if data_tuple:
+                        self.add_new_article(
+                            data_tuple[0], data_tuple[1], data_tuple[2]
+                        )
+                db_connection.close()
+                return "Inventory loaded successfully"
+            except Exception as e:
+                return e

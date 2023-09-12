@@ -1,4 +1,6 @@
 import sys
+import os
+import sqlite3
 
 from Article import Article
 from Inventory import Inventory
@@ -15,7 +17,8 @@ if __name__ == "__main__":
         f"New Inventory populated with demo data: 1\n"
         f"Load existing Inventory from csv file: 2\n"
         f"Load existing Inventory from binary file: 3\n"
-        f"Exit Inventory management: 4\n"
+        f"Load existing Inventory from database: 4\n"
+        f"Exit Inventory management: 5\n"
         f"your choice: "
     )
     try:
@@ -30,6 +33,8 @@ if __name__ == "__main__":
         print(company_inventory.load_csv())
     elif mode == 3:
         print(company_inventory.load_binary())
+    elif mode == 4:
+        print(company_inventory.load_db())
     else:
         sys.exit(0)
 
@@ -81,7 +86,8 @@ if __name__ == "__main__":
                 f"Display the whole inventory : 4\n"
                 f"Save the current inventory in a csv file : 5\n"
                 f"Save the current inventory in a binary file : 6\n"
-                f"Exit the program : 7\n"
+                f"Save the current inventory in a database : 7\n"
+                f"Exit the program : 8\n"
                 f"\nchoose an action: "
             )
         )
@@ -121,5 +127,7 @@ if __name__ == "__main__":
             print(company_inventory.save_csv())
         elif choice == 6:
             print(company_inventory.save_binary())
+        elif choice == 7:
+            print(company_inventory.save_db())
         else:
             sys.exit(0)
