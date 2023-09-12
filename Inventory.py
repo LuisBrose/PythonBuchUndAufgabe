@@ -39,7 +39,7 @@ class Inventory:
             n = name
         else:
             n = input("Please provide a name for the new article: ")
-        if int(quantity) >= 0:
+        if quantity and int(quantity) >= 0:
             q = int(quantity)
         else:
             q = input("Please provide a quantity for the new article: ")
