@@ -51,25 +51,23 @@ class Inventory:
         :return: a dictionary containing the transaction or cancelled if the transaction failed
         """
         ar, qu, ac = article, int(quantity), action
-        while type(ar) != str:
-            if not ar:
-                ar = input(
-                    "Please provide the code of the article you want to transfer: "
-                )
-        while type(qu) != int and qu < 0:
-            if not qu:
-                qu = int(input("How many times should this article be transferred?: "))
+        while type(ar) != str or not ar:
+            ar = input("Please provide the code of the article you want to transfer: ")
+        while qu < 0 or not qu:
+            qu = int(input("How many times should this article be transferred?: "))
         while ac != "Incoming" and ac != "Outgoing":
             ac = input('Is this transfer "Incoming" or "Outgoing"?: ')
 
-        if self.article_list.__contains__(ar):
+        if self.article_list.get(ar):
             self.article_list[ar].incoming(
                 qu
             ) if ac == "Incoming" else self.article_list[ar].outgoing(qu)
         elif ac == "Incoming":
-            self.add_new_article(ar)
+            self.add_new_article(ar, quantity=qu)
         else:
-            print("Transfer: Article could not be transferred because it does not exist")
+            print(
+                "Transfer: Article could not be transferred because it does not exist"
+            )
             return "cancelled"
         return {"article": ar, "quantity": qu, "action": ac}
 
@@ -81,7 +79,9 @@ class Inventory:
         """
         path = file_path
         if not file_path:
-            path = f"inventory_saves/{input('Please provide a name for you file: ')}.bin"
+            path = (
+                f"inventory_saves/{input('Please provide a name for you file: ')}.bin"
+            )
         try:
             f = open(path, mode="wb")
             pickle.dump(self.article_list, f)
@@ -98,7 +98,9 @@ class Inventory:
         """
         path = file_path
         if not file_path:
-            path = f"inventory_saves/{input('Please provide a name for you file: ')}.csv"
+            path = (
+                f"inventory_saves/{input('Please provide a name for you file: ')}.csv"
+            )
         try:
             f = open(path, mode="w")
             for article in self.article_list.values():
@@ -118,7 +120,7 @@ class Inventory:
         if not file_path:
             path = f"inventory_saves/{input('Please provide the file name (example_filename): ')}.bin"
         try:
-            f = open(path, 'rb')
+            f = open(path, "rb")
             self.article_list = pickle.load(f)
             f.close()
             return "Inventory loaded successfully"

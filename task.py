@@ -111,7 +111,7 @@ if __name__ == "__main__":
                 "Transaction: ",
                 company_inventory.add_new_transaction(
                     input("Code of the article you want to transfer: "),
-                    input("How many time you want to transfer this article: "),
+                    input("How many times you want to transfer this article: "),
                     "Incoming",
                 ),
             )
