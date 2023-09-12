@@ -234,3 +234,7 @@ if __name__ == "__main__":
     print(pickle.load(my_file)["c"])
     my_file.close()
 
+    test = {'a': "asd", 'b': "adsd"}
+    print(test.__contains__('d'))
+
+

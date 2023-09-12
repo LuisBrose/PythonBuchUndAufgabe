@@ -48,7 +48,7 @@ class Inventory:
         :param article: code of the article you want to transfer
         :param quantity: how many times you want to transfer this article
         :param action: direction of the transfer
-        :return: a dictionary containing the transaction or False if the transaction failed
+        :return: a dictionary containing the transaction or cancelled if the transaction failed
         """
         ar, qu, ac = article, int(quantity), action
         while type(ar) != str:
@@ -62,7 +62,7 @@ class Inventory:
         while ac != "Incoming" and ac != "Outgoing":
             ac = input('Is this transfer "Incoming" or "Outgoing"?: ')
 
-        if self.article_list[ar]:
+        if self.article_list.__contains__(ar):
             self.article_list[ar].incoming(
                 qu
             ) if ac == "Incoming" else self.article_list[ar].outgoing(qu)
@@ -70,7 +70,7 @@ class Inventory:
             self.add_new_article(ar)
         else:
             print("Transfer: Article could not be transferred because it does not exist")
-            return False
+            return "cancelled"
         return {"article": ar, "quantity": qu, "action": ac}
 
     def save_binary(self, file_path=None):
