@@ -175,7 +175,7 @@ if __name__ == "__main__":
     print(re.findall("[a-z]m", lorem))
 
     try:
-        my_file = open("../notes_out/text.txt", mode="a")
+        my_file = open("pythonbuch/out/text.txt", mode="a")
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     my_file.close()
 
     try:
-        my_file = open("../notes_out/text.txt")  # mode r is default
+        my_file = open("pythonbuch/out/text.txt")  # mode r is default
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     my_file.close()
 
     try:
-        my_file = open("../notes_out/data.csv", mode="w")  # write to csv
+        my_file = open("pythonbuch/out/data.csv", mode="w")  # write to csv
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     my_file.close()
 
     try:
-        my_file = open("../notes_out/data.csv")  # read from csv
+        my_file = open("pythonbuch/out/data.csv")  # read from csv
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     import pickle
 
     try:
-        my_file = open("../notes_out/serialized.bin", "wb")  # serialize to binary file
+        my_file = open("pythonbuch/out/serialized.bin", "wb")  # serialize to binary file
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     my_file.close()
 
     try:
-        my_file = open("../notes_out/serialized.bin", "rb")  # read serialized from binary
+        my_file = open("pythonbuch/out/serialized.bin", "rb")  # read serialized from binary
     except Exception as e:
         print("An Error occurred: ", e)
         sys.exit(0)
