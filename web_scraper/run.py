@@ -1,4 +1,3 @@
-import threading
 import time
 import urllib.request as u
 import random as r
@@ -32,6 +31,7 @@ def get_page_often(url: str | u.Request, out_folder: str, delay_interval: (int, 
         for i in range(0, iterations):
             get_page(url, f"{out_folder}/{r.randint(1000, 100000)}.html")
             time.sleep(r.randint(delay_interval[0], delay_interval[1]))
+        thread.join()
 
     thread = t.Thread(target=anon, daemon=True)
     thread.start()
@@ -48,3 +48,4 @@ if __name__ == "__main__":
     while True:
         if input("Type 'q' to stop the program:") == 'q':
             sys.exit(0)
+
