@@ -82,7 +82,7 @@ class Inventory:
         path = file_path
         if not file_path:
             path = (
-                f"inventory_saves/{input('Please provide a name for you file: ')}.bin"
+                f"aufgabe/inventory_saves/{input('Please provide a name for you file: ')}.bin"
             )
         try:
             f = open(path, mode="wb")
@@ -101,7 +101,7 @@ class Inventory:
         path = file_path
         if not file_path:
             path = (
-                f"inventory_saves/{input('Please provide a name for you file: ')}.csv"
+                f"aufgabe/inventory_saves/{input('Please provide a name for you file: ')}.csv"
             )
         try:
             f = open(path, mode="w")
@@ -120,7 +120,7 @@ class Inventory:
         """
         path = file_path
         if not path or not os.path.exists(path):
-            path = f"inventory_saves/{input('Please provide a name for you database (example_db): ')}.db"
+            path = f"aufgabe/inventory_saves/{input('Please provide a name for you database (example_db): ')}.db"
             if not os.path.exists(path):
                 try:
                     db_connection = sqlite3.connect(path)
@@ -158,7 +158,7 @@ class Inventory:
         """
         path = file_path
         if not file_path:
-            path = f"inventory_saves/{input('Please provide the file name (example_filename): ')}.bin"
+            path = f"aufgabe/inventory_saves/{input('Please provide the file name (example_filename): ')}.bin"
         try:
             f = open(path, "rb")
             self.article_list = pickle.load(f)
@@ -175,7 +175,7 @@ class Inventory:
         """
         path = file_path
         if not file_path:
-            path = f"inventory_saves/{input('Please provide the file name (example_filename): ')}.csv"
+            path = f"aufgabe/inventory_saves/{input('Please provide the file name (example_filename): ')}.csv"
         try:
             f = open(path, mode="r")
             content = f.read()
@@ -198,7 +198,7 @@ class Inventory:
         path = file_path
         while not path or not os.path.exists(path):
             try:
-                path = f"inventory_saves/{input('Please provide the database name (example_db): ')}.db"
+                path = f"aufgabe/inventory_saves/{input('Please provide the database name (example_db): ')}.db"
                 db_connection = sqlite3.connect(path)
                 cursor = db_connection.cursor()
                 cursor.execute("SELECT * FROM articles")
