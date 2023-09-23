@@ -18,7 +18,7 @@ class Article:
         Adds the specified amount of these articles to the inventory
         :param quantity: how many articles are being added
         """
-        self.stock = int(self.stock)+int(quantity)
+        self.stock = int(self.stock) + int(quantity)
 
     def outgoing(self, quantity):
         """
@@ -28,7 +28,7 @@ class Article:
         """
         quantity = int(quantity)
         if int(self.stock) - quantity > 0:
-            self.stock = int(self.stock)-quantity
+            self.stock = int(self.stock) - quantity
         else:
             raise Exception(
                 f"The article {self.name} could not be transferred {quantity} "

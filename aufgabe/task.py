@@ -12,14 +12,14 @@ if __name__ == "__main__":
     print("___---Welcome to Inventory management---___\n")
 
     mode = input(
-        f"Choose your Inventory management mode: \n"
-        f"New empty Inventory: 0\n"
-        f"New Inventory populated with demo data: 1\n"
-        f"Load existing Inventory from csv file: 2\n"
-        f"Load existing Inventory from binary file: 3\n"
-        f"Load existing Inventory from database: 4\n"
-        f"Exit Inventory management: 5\n"
-        f"your choice: "
+        "Choose your Inventory management mode: \n"
+        "New empty Inventory: 0\n"
+        "New Inventory populated with demo data: 1\n"
+        "Load existing Inventory from csv file: 2\n"
+        "Load existing Inventory from binary file: 3\n"
+        "Load existing Inventory from database: 4\n"
+        "Exit Inventory management: 5\n"
+        "your choice: "
     )
     try:
         mode = int(mode)
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         elif choice == 5:
             print(company_inventory.save_csv())
         elif choice == 6:
-            print(company_inventory.save_binary())
+            print(company_inventory.save_4binary())
         elif choice == 7:
             print(company_inventory.save_db())
         else:
